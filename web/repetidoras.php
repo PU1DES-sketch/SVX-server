@@ -72,7 +72,11 @@ th{background:#020617;color:#9ca3af}
 <td><?php echo htmlspecialchars($row['criado_em']); ?></td>
 <td>
 <a class="btn btn-gray" href="#">Editar</a>
-<a class="btn btn-red" href="#">Remover</a>
+<a class="btn btn-red"
+href="remover_repetidora.php?id=<?php echo $row['id']; ?>"
+onclick="return confirm('Deseja realmente remover esta repetidora?');">
+Remover
+</a>
 </td>
 </tr>
 <?php endwhile; ?>
