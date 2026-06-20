@@ -1,0 +1,12 @@
+[Unit]
+Description=SvxReflector Server
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/svxreflector /usr/local/etc/svxlink/svxreflector.conf
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
