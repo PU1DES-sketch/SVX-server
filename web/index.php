@@ -1,3 +1,4 @@
+<?php require_once "auth.php"; require_login(); ?>
 <?php
 $context = stream_context_create([
     'http' => ['timeout' => 2]
