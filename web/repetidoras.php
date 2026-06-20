@@ -38,7 +38,7 @@ th{background:#020617;color:#9ca3af}
 <div class="card">
 <h2>Repetidoras Cadastradas</h2>
 
-<a class="btn" href="#">+ Nova Repetidora</a>
+<a class="btn" href="repetidora_nova.php">+ Nova Repetidora</a>
 
 <table>
 <thead>
