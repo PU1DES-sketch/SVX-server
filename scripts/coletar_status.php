@@ -14,9 +14,20 @@ if (file_exists($stateFile)) {
     $old = json_decode(file_get_contents($stateFile), true) ?? [];
 }
 
+$db->exec("UPDATE status_nodes SET online=0, is_talker=0");
+
 foreach ($nodes as $call => $info) {
-    $tg = $info['tg'] ?? '';
-    $isTalker = !empty($info['isTalker']);
+    $tg = (string)($info['tg'] ?? '');
+    $isTalker = !empty($info['isTalker']) ? 1 : 0;
+    $monitored = isset($info['monitoredTGs']) ? implode(',', $info['monitoredTGs']) : '';
+    $sw = $info['sw'] ?? '';
+    $swVer = $info['swVer'] ?? '';
+    $projVer = $info['projVer'] ?? '';
+    $proto = '';
+
+    if (isset($info['protoVer']['majorVer'])) {
+        $proto = $info['protoVer']['majorVer'] . '.' . $info['protoVer']['minorVer'];
+    }
 
     if (!isset($old[$call])) {
         logEvent($db, $call, 'CONECTOU', $tg, 'Repetidora conectou ao refletor');
@@ -31,6 +42,33 @@ foreach ($nodes as $call => $info) {
     if ($oldTalker && !$isTalker) {
         logEvent($db, $call, 'TX_PAROU', $tg, 'Transmissão finalizada');
     }
+
+    $stmt = $db->prepare("
+        INSERT INTO status_nodes
+        (callsign, online, is_talker, tg, monitored_tgs, sw, sw_ver, proj_ver, proto_ver, atualizado_em)
+        VALUES
+        (:callsign, 1, :is_talker, :tg, :monitored_tgs, :sw, :sw_ver, :proj_ver, :proto_ver, CURRENT_TIMESTAMP)
+        ON CONFLICT(callsign) DO UPDATE SET
+        online=1,
+        is_talker=:is_talker,
+        tg=:tg,
+        monitored_tgs=:monitored_tgs,
+        sw=:sw,
+        sw_ver=:sw_ver,
+        proj_ver=:proj_ver,
+        proto_ver=:proto_ver,
+        atualizado_em=CURRENT_TIMESTAMP
+    ");
+
+    $stmt->bindValue(':callsign', $call);
+    $stmt->bindValue(':is_talker', $isTalker, SQLITE3_INTEGER);
+    $stmt->bindValue(':tg', $tg);
+    $stmt->bindValue(':monitored_tgs', $monitored);
+    $stmt->bindValue(':sw', $sw);
+    $stmt->bindValue(':sw_ver', $swVer);
+    $stmt->bindValue(':proj_ver', $projVer);
+    $stmt->bindValue(':proto_ver', $proto);
+    $stmt->execute();
 }
 
 foreach ($old as $call => $info) {

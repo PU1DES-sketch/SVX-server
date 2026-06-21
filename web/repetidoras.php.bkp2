@@ -3,20 +3,6 @@ require_once "auth.php";
 require_login();
 
 $db = new SQLite3('/opt/pu1des-reflector/data/database.sqlite');
-
-$totalCadastradas = (int)$db->querySingle("SELECT COUNT(*) FROM repetidoras WHERE ativo=1");
-
-$ctx = stream_context_create([
-    'http' => ['timeout' => 2]
-]);
-
-$json = @file_get_contents("http://127.0.0.1:8080/status", false, $ctx);
-$api = json_decode($json, true);
-$nodesOnline = $api['nodes'] ?? [];
-
-$totalOnline = count($nodesOnline);
-$totalOffline = max(0, $totalCadastradas - $totalOnline);
-
 $result = $db->query("SELECT * FROM repetidoras ORDER BY callsign ASC");
 ?>
 <!DOCTYPE html>
@@ -29,11 +15,6 @@ body{margin:0;font-family:Arial;background:#111827;color:#e5e7eb}
 .header{background:#020617;padding:20px;border-bottom:1px solid #1f2937}
 .container{padding:10px}
 a{color:#93c5fd;text-decoration:none}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:12px}
-.stat{background:#020617;border:1px solid #374151;border-radius:10px;padding:10px}
-.stat-title{font-size:12px;color:#9ca3af}
-.stat-num{font-size:26px;font-weight:bold;margin-top:4px}
-
 .card{background:#1f2937;border:1px solid #374151;border-radius:10px;padding:10px}
 table{width:100%;border-collapse:collapse;margin-top:15px}
 th,td{padding:6px;border-bottom:1px solid #374151;text-align:left;font-size:13px}
@@ -56,16 +37,8 @@ th{background:#020617;color:#9ca3af}
 <div class="container">
 <div class="card">
 <h2>Repetidoras Cadastradas</h2>
-<div class="cards">
-  <div class="stat"><div class="stat-title">Cadastradas</div><div class="stat-num"><?php echo $totalCadastradas; ?></div></div>
-  <div class="stat"><div class="stat-title">Online</div><div class="stat-num" style="color:#22c55e"><?php echo $totalOnline; ?></div></div>
-  <div class="stat"><div class="stat-title">Offline</div><div class="stat-num" style="color:#ef4444"><?php echo $totalOffline; ?></div></div>
-</div>
-
 
 <a class="btn" href="repetidora_nova.php">+ Nova Repetidora</a>
-<br><br>
-<input type="text" id="busca" placeholder="Buscar repetidora..." onkeyup="filtrarTabela()" style="width:100%;padding:8px;border-radius:6px;border:1px solid #374151;background:#111827;color:white;margin-bottom:10px;">
 
 <table>
 <thead>
@@ -139,17 +112,5 @@ Ban 24h
 </div>
 </div>
 
-<script>
-function filtrarTabela(){
-  var input = document.getElementById("busca");
-  var filtro = input.value.toUpperCase();
-  var tabela = document.querySelector("table");
-  var linhas = tabela.getElementsByTagName("tr");
-  for(var i=1; i<linhas.length; i++){
-    var texto = linhas[i].innerText.toUpperCase();
-    linhas[i].style.display = texto.indexOf(filtro) > -1 ? "" : "none";
-  }
-}
-</script>
 </body>
 </html>
