@@ -1,4 +1,4 @@
-<?php
+	<?php
 require_once "auth.php";
 require_login();
 
@@ -13,16 +13,16 @@ $result = $db->query("SELECT * FROM repetidoras ORDER BY callsign ASC");
 <style>
 body{margin:0;font-family:Arial;background:#111827;color:#e5e7eb}
 .header{background:#020617;padding:20px;border-bottom:1px solid #1f2937}
-.container{padding:10px}
+.container{padding:20px}
 a{color:#93c5fd;text-decoration:none}
-.card{background:#1f2937;border:1px solid #374151;border-radius:10px;padding:10px}
+.card{background:#1f2937;border:1px solid #374151;border-radius:12px;padding:18px}
 table{width:100%;border-collapse:collapse;margin-top:15px}
-th,td{padding:6px;border-bottom:1px solid #374151;text-align:left;font-size:13px}
+th,td{padding:12px;border-bottom:1px solid #374151;text-align:left}
 th{background:#020617;color:#9ca3af}
 .badge{padding:5px 10px;border-radius:20px;font-size:13px;font-weight:bold}
 .on{background:#14532d;color:#86efac}
 .off{background:#7f1d1d;color:#fecaca}
-.btn{display:inline-block;background:#2563eb;color:white;padding:5px 8px;border-radius:6px;margin:2px;font-size:12px}
+.btn{display:inline-block;background:#2563eb;color:white;padding:10px 14px;border-radius:8px;margin-right:8px}
 .btn-red{background:#dc2626}
 .btn-gray{background:#374151}
 </style>
@@ -87,7 +87,7 @@ onclick="return confirm('Remover repetidora?');">
 Remover
 </a>
 
-
+<br><br>
 
 <a class="btn"
 href="bloquear_node.php?callsign=<?php echo urlencode($row['callsign']); ?>&tempo=300"
