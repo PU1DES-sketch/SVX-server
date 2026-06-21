@@ -1,0 +1,32 @@
+{
+    "PP1DGR-R": {
+        "isTalker": false,
+        "monitoredTGs": [
+            999
+        ],
+        "projVer": "24.02",
+        "protoVer": {
+            "majorVer": 2,
+            "minorVer": 0
+        },
+        "restrictedTG": false,
+        "sw": "SvxLink",
+        "swVer": "1.8.0",
+        "tg": 0
+    },
+    "PP1ICH-R": {
+        "isTalker": false,
+        "monitoredTGs": [
+            999
+        ],
+        "projVer": "24.02",
+        "protoVer": {
+            "majorVer": 2,
+            "minorVer": 0
+        },
+        "restrictedTG": false,
+        "sw": "SvxLink",
+        "swVer": "1.8.0",
+        "tg": 0
+    }
+}
