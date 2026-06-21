@@ -71,7 +71,7 @@ th{background:#020617;color:#9ca3af}
 </td>
 <td><?php echo htmlspecialchars($row['criado_em']); ?></td>
 <td>
-<a class="btn btn-gray" href="#">Editar</a>
+<a class="btn btn-gray" href="repetidora_editar.php?id=<?php echo $row['id']; ?>">Editar</a>
 <a class="btn btn-red"
 href="remover_repetidora.php?id=<?php echo $row['id']; ?>"
 onclick="return confirm('Deseja realmente remover esta repetidora?');">
