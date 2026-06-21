@@ -13,7 +13,7 @@ while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
 }
 
 $ctx = stream_context_create([
-    'http' => ['timeout' => 2]
+    'http' => ['timeout' => 0.2]
 ]);
 
 $json = @file_get_contents("http://127.0.0.1:8080/status", false, $ctx);

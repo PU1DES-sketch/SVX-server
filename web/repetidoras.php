@@ -7,7 +7,7 @@ $db = new SQLite3('/opt/pu1des-reflector/data/database.sqlite');
 $totalCadastradas = (int)$db->querySingle("SELECT COUNT(*) FROM repetidoras WHERE ativo=1");
 
 $ctx = stream_context_create([
-    'http' => ['timeout' => 2]
+    'http' => ['timeout' => 0.2]
 ]);
 
 $json = @file_get_contents("http://127.0.0.1:8080/status", false, $ctx);
