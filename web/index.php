@@ -29,7 +29,7 @@ $agora = date("d/m/Y H:i:s");
 <head>
 <meta charset="utf-8">
 <meta http-equiv="refresh" content="5">
-<title>PU1DES Network Control Center</title>
+<title> Network Control Center</title>
 <style>
 body{margin:0;font-family:Arial;background:#111827;color:#e5e7eb}
 .header{background:#020617;padding:20px;border-bottom:1px solid #1f2937}
@@ -62,9 +62,11 @@ th{background:#020617;color:#9ca3af}
     <p>
       <a href="index.php">Dashboard</a> |
       <a href="repetidoras.php">Repetidoras</a> |
-      <a href="status_rede.php">Status da Rede</a> |
-      <a href="logout.php" style="color:#fca5a5">Sair</a>
-    </p>
+<a href="status_rede.php">Status da Rede</a> |
+<a href="last_heard.php">Last Heard</a> |
+<a href="logs.php">Logs</a> |
+<a href="logout.php" style="color:#fca5a5">Sair</a>
+</p>
 </div>
 
 <div class="container">
