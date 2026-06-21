@@ -1,0 +1,10 @@
+[Unit]
+Description=Executa coletor PU1DES a cada 5 segundos
+
+[Timer]
+OnBootSec=10
+OnUnitActiveSec=5
+Unit=pu1des-coletor.service
+
+[Install]
+WantedBy=timers.target

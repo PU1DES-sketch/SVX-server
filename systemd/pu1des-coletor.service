@@ -1,0 +1,6 @@
+[Unit]
+Description=PU1DES Status Collector
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/php /opt/pu1des-reflector/scripts/coletar_status.php
